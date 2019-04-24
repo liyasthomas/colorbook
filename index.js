@@ -292,15 +292,22 @@ const colors = {
 		"900": "#263238"
 	}
 };
-let html = "";
+let pallet = "";
+let circles = "";
 Object.keys(colors).forEach(col => {
-	html += `<h3>${col}</h3><div class='family'>`;
+	pallet += `<h4 id='` + col.toLowerCase().replace(/\s+/gi, '-') + `'>${col}</h4><div class='family'>`;
+	circles += `<div class='circle' onclick='document.getElementById("` + col.toLowerCase().replace(/\s+/gi, '-') + `").scrollIntoView({behavior: "smooth"});' style='background:${colors[col][500]};'></div>`;
 	Object.keys(colors[col]).forEach(shade => {
-		html += `<div class='color'><span class='btn' data-bg-color='${colors[col][shade]}' data-color='#ffffff' style='background:${colors[col][shade]};'></span><b>${shade}</b>${colors[col][shade]}</div>`;
+		const complementaryColor = (color) => {
+			const hexColor = color.replace('#', '0x');
+			return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`;
+		};
+		pallet += `<div class='color'><span class='btn picker' data-bg-color='${colors[col][shade]}' data-color='` + complementaryColor(colors[col][shade]) + `' style='background:${colors[col][shade]};'></span><b>${shade}</b>${colors[col][shade]}</div>`;
 	});
-	html += "</div>"
+	pallet += "</div>"
 });
-document.getElementById("colors").innerHTML = html;
+document.getElementById("colors").innerHTML = pallet;
+document.getElementById("circles").innerHTML = circles;
 const themeSwitchers = document.querySelectorAll('span');
 const dynamicInputs = document.querySelectorAll('input');
 const handleThemeUpdate = (cssVars) => {
@@ -308,10 +315,16 @@ const handleThemeUpdate = (cssVars) => {
 	const keys = Object.keys(cssVars);
 	keys.forEach(key => {
 		root.style.setProperty(key, cssVars[key]);
-		document.getElementById('bg-color').value = getComputedStyle(document.body).getPropertyValue('--primary-bg-color');
-		document.getElementById('color').value = getComputedStyle(document.body).getPropertyValue('--primary-color');
-		document.getElementById('bg').innerHTML = getComputedStyle(document.body).getPropertyValue('--primary-bg-color');
-		document.getElementById('fg').innerHTML = getComputedStyle(document.body).getPropertyValue('--primary-color');
+		let pbg = getComputedStyle(document.body).getPropertyValue('--primary-bg-color').replace(/\s+/gi, '');
+		let pfg = getComputedStyle(document.body).getPropertyValue('--primary-color').replace(/\s+/gi, '');
+		document.getElementById('bg-color').value = pbg;
+		document.getElementById('color').value = pfg;
+		document.getElementById('bg').innerHTML = pbg;
+		document.getElementById('fg').innerHTML = pfg;
+		document.getElementById('content').scrollIntoView({
+			behavior: "smooth",
+			block: "end"
+		});
 	});
 }
 themeSwitchers.forEach((item) => {
@@ -332,7 +345,5 @@ dynamicInputs.forEach((item) => {
 		handleThemeUpdate({
             [cssPropName]: target.value
 		});
-		document.getElementById('bg').innerHTML = document.getElementById('bg-color').value;
-		document.getElementById('fg').innerHTML = document.getElementById('color').value;
 	});
 });
