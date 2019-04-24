@@ -73,30 +73,31 @@
 			</nav>
 		</header>
 		<section id="content">
-			<h1>This is 1st level heading</h1>
-			<h2>This is 2nd level heading</h2>
-			<h3>This is 3rd level heading</h3>
-			<h4>This is 4th level heading</h4>
-			<h5>This is 5th level heading</h5>
-			<h6>This is 6th level heading</h6>
+			<h1>This is H1 level heading</h1>
+			<h2>This is H2 level heading</h2>
+			<h3>This is H3 level heading</h3>
+			<h4>This is H4 level heading</h4>
+			<h5>This is H5 level heading</h5>
+			<h6>This is H6 level heading</h6>
 			<p>This is a paragraph.</p>
 		</section>
 		<section id="theming">
 			<h4>Combination</h4>
 			<div class='family'>
 				<div class='color'>
-					<input class='btn' type="color" id="bg-color" value="#ffffff">
+					<input type="color" class='btn' id="bg-color" value="#ffffff">
 					<b>Background</b>
-					<div id="bg">#ffffff</div>
+					<input type="text" id="bg" class="hex" onclick="copy(this.id)" value="#ffffff">
 				</div>
 				<div class='color'>
-					<input class='btn' type="color" id="color" value="#555555">
+					<input type="color" class='btn' id="color" value="#555555">
 					<b>Foreground</b>
-					<div id="fg">#555555</div>
+					<input type="text" readonly id="fg" class="hex" onclick="copy(this.id)" value="#555555">
 				</div>
 			</div>
 		</section>
 		<section id="colors"></section>
+		<div id="snackbar">Copied</div>
 	</main>
 	<script src="index.js"></script>
 </body>

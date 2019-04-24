@@ -9,6 +9,10 @@
 	--primary-color: #555555;
 }
 
+::selection {
+	background: #cccccc;
+}
+
 * {
 	box-sizing: border-box;
 	outline: 0;
@@ -120,4 +124,40 @@ input[type="color"]::-webkit-color-swatch {
 	padding: 32px;
 	cursor: pointer;
 	border-radius: 4px;
+}
+
+.hex {
+	cursor: pointer;
+	font-size: inherit;
+	font-family: inherit;
+	max-width: 80px;
+	padding: 0;
+}
+
+#snackbar {
+	visibility: hidden;
+	background-color: #555555;
+	color: #fff;
+	border-radius: 4px;
+	padding: 8px 16px;
+	position: fixed;
+	z-index: 1;
+	left: 32px;
+	bottom: 32px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+}
+
+#snackbar.show {
+	visibility: visible;
+	animation: fadein .2s, fadeout 0.2s 1.8s;
+}
+
+@keyframes fadeout {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
 }

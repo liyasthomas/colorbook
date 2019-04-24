@@ -302,14 +302,14 @@ Object.keys(colors).forEach(col => {
 			const hexColor = color.replace('#', '0x');
 			return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`;
 		};
-		pallet += `<div class='color'><span class='btn picker' data-bg-color='${colors[col][shade]}' data-color='` + complementaryColor(colors[col][shade]) + `' style='background:${colors[col][shade]};'></span><b>${shade}</b>${colors[col][shade]}</div>`;
+		pallet += `<div class='color'><span class='btn picker' data-bg-color='${colors[col][shade]}' data-color='` + complementaryColor(colors[col][shade]) + `' style='background: ${colors[col][shade]};'></span><b>${shade}</b><input type='text' readonly class='hex' id='${colors[col][shade]}' value='${colors[col][shade]}' onclick='copy(this.id);'></div>`;
 	});
 	pallet += "</div>"
 });
 document.getElementById("colors").innerHTML = pallet;
 document.getElementById("circles").innerHTML = circles;
-const themeSwitchers = document.querySelectorAll('span');
-const dynamicInputs = document.querySelectorAll('input');
+const themeSwitchers = document.querySelectorAll('.picker');
+const dynamicInputs = document.querySelectorAll('input[type=color]');
 const handleThemeUpdate = (cssVars) => {
 	const root = document.querySelector(':root');
 	const keys = Object.keys(cssVars);
@@ -319,8 +319,8 @@ const handleThemeUpdate = (cssVars) => {
 		let pfg = getComputedStyle(document.body).getPropertyValue('--primary-color').replace(/\s+/gi, '');
 		document.getElementById('bg-color').value = pbg;
 		document.getElementById('color').value = pfg;
-		document.getElementById('bg').innerHTML = pbg;
-		document.getElementById('fg').innerHTML = pfg;
+		document.getElementById('bg').value = pbg;
+		document.getElementById('fg').value = pfg;
 		document.getElementById('content').scrollIntoView({
 			behavior: "smooth",
 			block: "end"
@@ -343,7 +343,16 @@ dynamicInputs.forEach((item) => {
 	}) => {
 		const cssPropName = `--primary-${target.id}`;
 		handleThemeUpdate({
-            [cssPropName]: target.value
+[cssPropName]: target.value
 		});
 	});
 });
+const copy = (e) => {
+	document.getElementById(e).select();
+	document.execCommand("copy");
+	const x = document.getElementById("snackbar");
+	x.className = "show";
+	setTimeout(() => {
+		x.className = x.className.replace("show", "");
+	}, 2000);
+}
