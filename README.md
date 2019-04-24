@@ -17,7 +17,7 @@ When I wrote this, only God and I understood what I was doing. Now, only God kno
 
 # <img src="icons/icon-48x48.png" alt="colorbook" width="32"> Colorbook
 
-### 👻 Color scheme for UI design by [Liyas Thomas](https://github.com/liyasthomas)
+### 🎨 Color scheme for UI design by [Liyas Thomas](https://github.com/liyasthomas)
 
 <div align="center">
   <br>
@@ -30,11 +30,13 @@ When I wrote this, only God and I understood what I was doing. Now, only God kno
 
 :heart: **Lightweight and minimal**: Crafted with minimalistic UI design
 
-:electric_plug: **Real-time editor**: WYSIWYG (what you see is what you get) markdown editor 
+:electric_plug: **Real-time demo**: Pick a color, view a demo 
 
-:zap: **Real-time viewer**: View changes as you type
+:zap: **Copy color codes to the clipboard**: Click on any color code to copy to clipboard!
 
-:crescent_moon: **Dark mode**: Turn the lights off!
+:sparkles: **Choose custom colors**: Choose your own colors
+
+:robot: **AI**: Generate combination colors for background and foreground
 
 ---
 
@@ -42,8 +44,9 @@ When I wrote this, only God and I understood what I was doing. Now, only God kno
 
 [https://liyasthomas.github.io/colorbook](https://liyasthomas.github.io/colorbook)
 
-1. paste/type markdown on left
-2. view colorbook on right
+1. Pick a color
+2. View demo
+3. Copy color codes
 
 You're done!
 
@@ -51,8 +54,6 @@ You're done!
 
 ## Built with
 
-* **[MarkedJS](https://marked.js.org)** - For markdown parser
-* **[highlightjs](https://highlightjs.org)** - For code highlighting
 * **[Chromium](https://github.com/chromium/chromium)** - Thanks for being so fast!
 * HTML - For the web framework
 * CSS - For styling components
@@ -96,8 +97,7 @@ See the [CHANGELOG](CHANGELOG.md) file for details.
 * [Liyas Thomas](https://github.com/liyasthomas)
 
 ### Thanks
-* [MarkedJS](https://marked.js.org)
-* [highlightjs](https://highlightjs.org)
+* [StackOverflow](https://stackoverflow.com)
 
 See the list of [contributors](https://github.com/liyasthomas/colorbook/graphs/contributors) who participated in this project.
 
@@ -113,5 +113,4 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 * Hat tip to anyone who's code was used
 * Inspirations:
-	* [StackEdit](https://stackedit.io)
 	* [Dribbble](https://dribbble.com)
