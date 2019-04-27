@@ -146,8 +146,8 @@ nav.title .circle {
 	padding: 8px 16px;
 	position: fixed;
 	z-index: 1;
-	left: 32px;
-	bottom: 32px;
+	left: 16px;
+	bottom: 16px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
 }
 
