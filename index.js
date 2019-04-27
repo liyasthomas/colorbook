@@ -295,8 +295,8 @@ const colors = {
 let pallet = "";
 let circles = "";
 Object.keys(colors).forEach(col => {
-	pallet += `<h4 id='` + col.toLowerCase().replace(/\s+/gi, '-') + `'>${col}</h4><div class='family'>`;
-	circles += `<div class='circle' onclick='document.getElementById("` + col.toLowerCase().replace(/\s+/gi, '-') + `").scrollIntoView({behavior: "smooth"});' style='background:${colors[col][500]};'></div>`;
+	pallet += `<nav class='title'><span class='circle' style='background:${colors[col][500]};'></span><h4 id='` + col.toLowerCase().replace(/\s+/gi, '-') + `'>${col}</h4></nav><div class='family'>`;
+	circles += `<a href="javascript:void(0);" class='circle' onclick='document.getElementById("` + col.toLowerCase().replace(/\s+/gi, '-') + `").scrollIntoView({behavior: "smooth"});' style='background:${colors[col][500]};'></a>`;
 	Object.keys(colors[col]).forEach(shade => {
 		const complementaryColor = (color) => {
 			const hexColor = color.replace('#', '0x');
@@ -321,9 +321,9 @@ const handleThemeUpdate = (cssVars) => {
 		document.getElementById('color').value = pfg;
 		document.getElementById('bg').value = pbg;
 		document.getElementById('fg').value = pfg;
-		document.getElementById('content').scrollIntoView({
+		document.getElementById('circles').scrollIntoView({
 			behavior: "smooth",
-			block: "end"
+			block: "center"
 		});
 	});
 }
@@ -356,3 +356,11 @@ const copy = (e) => {
 		x.className = x.className.replace("show", "");
 	}, 2000);
 }
+document.getElementById('swap').addEventListener('click', ({
+	target
+}) => {
+	handleThemeUpdate({
+		'--primary-bg-color': document.getElementById('color').value,
+		'--primary-color': document.getElementById('bg-color').value
+	});
+});

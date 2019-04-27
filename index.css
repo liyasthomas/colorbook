@@ -10,7 +10,7 @@
 }
 
 ::selection {
-	background: #cccccc;
+	background: #dddddd;
 }
 
 * {
@@ -67,7 +67,6 @@ nav {
 	padding: 16px;
 	border-radius: 50%;
 	margin: 8px;
-	cursor: pointer;
 }
 
 main {
@@ -106,6 +105,10 @@ input[type="color"]::-webkit-color-swatch {
 	flex-direction: column;
 }
 
+nav.title .circle {
+	margin-right: 16px;
+}
+
 .family {
 	display: flex;
 	flex-wrap: wrap;
@@ -132,6 +135,7 @@ input[type="color"]::-webkit-color-swatch {
 	font-family: inherit;
 	max-width: 80px;
 	padding: 0;
+	color: #555555;
 }
 
 #snackbar {
