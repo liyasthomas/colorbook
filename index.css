@@ -91,7 +91,7 @@ input[type="color"]::-webkit-color-swatch {
 
 #content {
 	padding: 32px;
-	transition: background-color 0.5s ease-out, color 0.5s ease-out;
+	transition: background-color .2s ease-out, color .2s ease-out;
 	background-color: var(--primary-bg-color);
 	color: var(--primary-color);
 	border-radius: 4px;
@@ -127,6 +127,12 @@ nav.title .circle {
 	padding: 32px;
 	cursor: pointer;
 	border-radius: 4px;
+	transition: .2s;
+}
+
+.picker:hover {
+	transform: scale(1.2);
+	box-shadow: 0 0 6px rgba(0,0,0,.1);
 }
 
 .hex {
@@ -136,6 +142,7 @@ nav.title .circle {
 	max-width: 80px;
 	padding: 0;
 	color: #555555;
+	text-transform: uppercase;
 }
 
 #snackbar {
