@@ -130,11 +130,6 @@ nav.title .circle {
 	transition: .2s;
 }
 
-.picker:hover {
-	transform: scale(1.2);
-	box-shadow: 0 0 6px rgba(0,0,0,.1);
-}
-
 .hex {
 	cursor: pointer;
 	font-size: inherit;
