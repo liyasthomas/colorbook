@@ -82,7 +82,15 @@
 			<p>This is a paragraph.</p>
 		</section>
 		<section id="theming">
-			<h4>Combination <a href="javascript:void(0);" id="swap">⇌</a></h4>
+			<h4 class="flex">
+				<div>
+					Combination
+				</div>
+				<div class="flex"></div>
+				<div>
+					<a href="javascript:void(0);" id="swap">Swap ⇌</a>
+				</div>
+			</h4>
 			<div class='family'>
 				<div class='color'>
 					<input type="color" class='btn' id="bg-color" value="#ffffff">
@@ -95,6 +103,19 @@
 					<input type="text" readonly id="fg" class="hex" onclick="copy(this.id)" value="#555555">
 				</div>
 			</div>
+		</section>
+		<section id="gradient">
+			<h4 class="flex">
+				<div>
+					Gradient
+				</div>
+				<div class="flex"></div>
+				<div>
+					steps: <input type="number" id="steps" min="1" max="100" name="steps" placeholder="1-100" value="10">
+					<a href="javascript:updateSpitter();">Generate ↻</a>
+				</div>
+			</h4>
+			<div id="gradientcolors"></div>
 		</section>
 		<section id="colors"></section>
 		<div id="snackbar">Copied</div>

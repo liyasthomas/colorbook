@@ -292,16 +292,93 @@ const colors = {
 		'900': '#263238'
 	}
 }
+const complementaryColor = (color) => {
+	const hexColor = color.replace('#', '0x')
+	return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`
+}
+
+function processValue({
+	dataType,
+	value
+}) {
+	switch (dataType) {
+		case HEX: {
+			return processHEX(value)
+		}
+	}
+}
+
+function processHEX(val) {
+	const hex = (val.length > 6) ? val.substr(1, val.length - 1) : val
+	if (hex.length > 3) {
+		var r = hex.substr(0, 2)
+		var g = hex.substr(2, 2)
+		var b = hex.substr(4, 2)
+	} else {
+		var r = hex.substr(0, 1) + hex.substr(0, 1)
+		var g = hex.substr(1, 1) + hex.substr(1, 1)
+		var b = hex.substr(2, 1) + hex.substr(2, 1)
+	}
+	return [
+    parseInt(r, 16),
+    parseInt(g, 16),
+    parseInt(b, 16)
+  ]
+}
+
+function updateSpitter() {
+	const val1El = document.getElementById('bg-color')
+	const val2El = document.getElementById('color')
+	let val1RGB = processHEX(val1El.value)
+	let val2RGB = processHEX(val2El.value)
+	let colors = []
+	const stepsInt = parseInt(steps.value, 10)
+	const stepsPerc = 100 / (stepsInt + 1)
+
+	const valClampRGB = [
+    val2RGB[0] - val1RGB[0],
+    val2RGB[1] - val1RGB[1],
+    val2RGB[2] - val1RGB[2]
+  ]
+
+	for (var i = 0; i < stepsInt; i++) {
+		const clampedR = (valClampRGB[0] > 0) ?
+			pad((Math.round(valClampRGB[0] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
+			pad((Math.round((val1RGB[0] + (valClampRGB[0]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
+
+		const clampedG = (valClampRGB[1] > 0) ?
+			pad((Math.round(valClampRGB[1] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
+			pad((Math.round((val1RGB[1] + (valClampRGB[1]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
+
+		const clampedB = (valClampRGB[2] > 0) ?
+			pad((Math.round(valClampRGB[2] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
+			pad((Math.round((val1RGB[2] + (valClampRGB[2]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
+		colors[i] = [
+      '#',
+      clampedR,
+      clampedG,
+      clampedB
+    ].join('')
+	}
+	let html = `<div class='family'>`
+	for (var i = 0; i < colors.length; i++) {
+		html += `<div class='color'><span class='btn picker' data-bg-color='${colors[i]}' data-color='` + complementaryColor(colors[i]) + `' style='background: ${colors[i]};'></span><b>${i + 1}</b><input type='text' readonly class='hex' id='${colors[i]}' value='${colors[i]}' onclick='copy(this.id);'></div>`
+	}
+	document.getElementById('gradientcolors').innerHTML = html
+}
+
+function pad(n, width, z = '0') {
+	n = `${n}`
+	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
+}
+updateSpitter()
+
 let pallet = ''
 let circles = ''
 Object.keys(colors).forEach(col => {
 	pallet += `<nav class='title'><span class='circle' style='background:${colors[col][500]};'></span><h4 id='` + col.toLowerCase().replace(/\s+/gi, '-') + `'>${col}</h4></nav><div class='family'>`
 	circles += `<a href="javascript:void(0);" class='circle' onclick='document.getElementById("` + col.toLowerCase().replace(/\s+/gi, '-') + `").scrollIntoView({behavior: "smooth"});' style='background:${colors[col][500]};'></a>`
 	Object.keys(colors[col]).forEach(shade => {
-		const complementaryColor = (color) => {
-			const hexColor = color.replace('#', '0x')
-			return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`
-		}
 		pallet += `<div class='color'><span class='btn picker' data-bg-color='${colors[col][shade]}' data-color='` + complementaryColor(colors[col][shade]) + `' style='background: ${colors[col][shade]};'></span><b>${shade}</b><input type='text' readonly class='hex' id='${colors[col][shade]}' value='${colors[col][shade]}' onclick='copy(this.id);'></div>`
 	})
 	pallet += '</div>'
@@ -321,6 +398,7 @@ const handleThemeUpdate = (cssVars) => {
 		document.getElementById('color').value = pfg
 		document.getElementById('bg').value = pbg
 		document.getElementById('fg').value = pfg
+		updateSpitter()
 		document.getElementById('circles').scrollIntoView({
 			behavior: 'smooth',
 			block: 'center'
