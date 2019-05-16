@@ -292,24 +292,24 @@ const colors = {
 		'900': '#263238'
 	}
 }
+const bgc = document.getElementById('bg-color')
+const fgc = document.getElementById('color')
 const complementaryColor = (color) => {
-	const hexColor = color.replace('#', '0x')
+	let hexColor = color.replace('#', '0x')
 	return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`
 }
-
-function processValue({
+const processValue = ({
 	dataType,
 	value
-}) {
+}) => {
 	switch (dataType) {
 		case HEX: {
 			return processHEX(value)
 		}
 	}
 }
-
-function processHEX(val) {
-	const hex = (val.length > 6) ? val.substr(1, val.length - 1) : val
+const processHEX = (val) => {
+	let hex = (val.length > 6) ? val.substr(1, val.length - 1) : val
 	if (hex.length > 3) {
 		var r = hex.substr(0, 2)
 		var g = hex.substr(2, 2)
@@ -325,32 +325,27 @@ function processHEX(val) {
     parseInt(b, 16)
   ]
 }
-
-function updateSpitter() {
-	const val1El = document.getElementById('bg-color')
-	const val2El = document.getElementById('color')
-	let val1RGB = processHEX(val1El.value)
-	let val2RGB = processHEX(val2El.value)
+const updateSpitter = () => {
+	let val1RGB = processHEX(bgc.value)
+	let val2RGB = processHEX(fgc.value)
 	let colors = []
-	const stepsInt = parseInt(steps.value, 10)
-	const stepsPerc = 100 / (stepsInt + 1)
-
-	const valClampRGB = [
+	let stepsInt = parseInt(steps.value, 10)
+	let stepsPerc = 100 / (stepsInt + 1)
+	let valClampRGB = [
     val2RGB[0] - val1RGB[0],
     val2RGB[1] - val1RGB[1],
     val2RGB[2] - val1RGB[2]
   ]
-
-	for (var i = 0; i < stepsInt; i++) {
-		const clampedR = (valClampRGB[0] > 0) ?
+	for (let i = 0; i < stepsInt; i++) {
+		let clampedR = (valClampRGB[0] > 0) ?
 			pad((Math.round(valClampRGB[0] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
 			pad((Math.round((val1RGB[0] + (valClampRGB[0]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
 
-		const clampedG = (valClampRGB[1] > 0) ?
+		let clampedG = (valClampRGB[1] > 0) ?
 			pad((Math.round(valClampRGB[1] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
 			pad((Math.round((val1RGB[1] + (valClampRGB[1]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
 
-		const clampedB = (valClampRGB[2] > 0) ?
+		let clampedB = (valClampRGB[2] > 0) ?
 			pad((Math.round(valClampRGB[2] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
 			pad((Math.round((val1RGB[2] + (valClampRGB[2]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
 		colors[i] = [
@@ -361,18 +356,27 @@ function updateSpitter() {
     ].join('')
 	}
 	let html = `<div class='family'>`
-	for (var i = 0; i < colors.length; i++) {
-		html += `<div class='color'><span class='btn picker' data-bg-color='${colors[i]}' data-color='` + complementaryColor(colors[i]) + `' style='background: ${colors[i]};'></span><b>${i + 1}</b><input type='text' readonly class='hex' id='${colors[i]}' value='${colors[i]}' onclick='copy(this.id);'></div>`
-	}
+	Object.keys(colors).forEach(i => {
+		html += `<div class='color'><span class='btn gpicker' data-bg-color='${colors[i]}' data-color='` + complementaryColor(colors[i]) + `' style='background: ${colors[i]};'></span><b>${i}</b><input type='text' readonly class='hex' id='${colors[i]}' value='${colors[i]}' onclick='copy(this.id);'></div>`
+	})
 	document.getElementById('gradientcolors').innerHTML = html
+	let themeSwitchers = document.querySelectorAll('.gpicker')
+	themeSwitchers.forEach((item) => {
+		item.addEventListener('click', ({
+			target
+		}) => {
+			handleThemeUpdate({
+				'--primary-bg-color': target.getAttribute('data-bg-color'),
+				'--primary-color': target.getAttribute('data-color')
+			})
+		})
+	})
 }
-
-function pad(n, width, z = '0') {
+const pad = (n, width, z = '0') => {
 	n = `${n}`
 	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
 }
 updateSpitter()
-
 let pallet = ''
 let circles = ''
 Object.keys(colors).forEach(col => {
@@ -385,17 +389,17 @@ Object.keys(colors).forEach(col => {
 })
 document.getElementById('colors').innerHTML = pallet
 document.getElementById('circles').innerHTML = circles
-const themeSwitchers = document.querySelectorAll('.picker')
-const dynamicInputs = document.querySelectorAll('input[type=color]')
+let themeSwitchers = document.querySelectorAll('.picker')
+let dynamicInputs = document.querySelectorAll('input[type=color]')
 const handleThemeUpdate = (cssVars) => {
-	const root = document.querySelector(':root')
-	const keys = Object.keys(cssVars)
+	let root = document.querySelector(':root')
+	let keys = Object.keys(cssVars)
 	keys.forEach(key => {
 		root.style.setProperty(key, cssVars[key])
 		let pbg = getComputedStyle(document.body).getPropertyValue('--primary-bg-color').replace(/\s+/gi, '')
 		let pfg = getComputedStyle(document.body).getPropertyValue('--primary-color').replace(/\s+/gi, '')
-		document.getElementById('bg-color').value = pbg
-		document.getElementById('color').value = pfg
+		bgc.value = pbg
+		fgc.value = pfg
 		document.getElementById('bg').value = pbg
 		document.getElementById('fg').value = pfg
 		updateSpitter()
@@ -425,6 +429,14 @@ dynamicInputs.forEach((item) => {
 		})
 	})
 })
+document.getElementById('swap').addEventListener('click', ({
+	target
+}) => {
+	handleThemeUpdate({
+		'--primary-bg-color': fgc.value,
+		'--primary-color': bgc.value
+	})
+})
 const copy = (e) => {
 	document.getElementById(e).select()
 	document.execCommand('copy')
@@ -434,11 +446,3 @@ const copy = (e) => {
 		x.className = x.className.replace('show', '')
 	}, 2000)
 }
-document.getElementById('swap').addEventListener('click', ({
-	target
-}) => {
-	handleThemeUpdate({
-		'--primary-bg-color': document.getElementById('color').value,
-		'--primary-color': document.getElementById('bg-color').value
-	})
-})

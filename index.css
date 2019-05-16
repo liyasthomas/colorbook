@@ -5,8 +5,8 @@
 }
 
 :root {
-	--primary-bg-color: #ffffff;
-	--primary-color: #555555;
+	--primary-bg-color: #212121;
+	--primary-color: #DEDEDE;
 }
 
 ::selection {
