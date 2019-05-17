@@ -48,8 +48,7 @@ body {
 	animation: fadein .2s;
 }
 
-header,
-footer {
+header {
 	display: flex;
 	flex-direction: column;
 }
@@ -73,11 +72,14 @@ main {
 	padding: 32px;
 }
 
-a:not(.circle) {
+button {
 	background: #000000;
 	color: #ffffff;
+	font-size: 18px;
+	font-family: 'Roboto Mono', "SF Mono", "Lucida Console", Monaco, monospace;
 	padding: 8px 16px;
 	border-radius: 4px;
+	cursor: pointer;
 }
 
 input[type="number"] {

@@ -68,7 +68,12 @@
 <body>
 	<main>
 		<header>
-			<h1 class="flex"><img src="icons/logo.svg" alt="" style="height: 32px; margin-right: 16px;">Colorbook</h1>
+			<div class="flex">
+				<img src="icons/logo.svg" alt="Logo" style="height: 32px; margin-right: 16px;">
+				<h1>Colorbook</h1>
+				<div class="flex"></div>
+				<a href="https://github.com/liyasthomas/colorbook" target="_blank" rel="noopener"><img src="icons/github.svg" alt="GitHub"></a>
+			</div>
 			<nav id="circles">
 			</nav>
 		</header>
@@ -82,7 +87,7 @@
 				<h4>Combination</h4>
 				<div class="flex"></div>
 				<div>
-					<a href="javascript:void(0);" id="swap">Swap ⇌</a>
+					<button id="swap">Swap ⇌</button>
 				</div>
 			</nav>
 			<div class='family'>
@@ -105,7 +110,7 @@
 				<div class="flex"></div>
 				<div>
 					Steps: <input type="number" id="steps" oninput="this.value=this.value.slice(0,this.maxLength)" min="1" max="99" name="steps" value="10" maxlength="2">
-					<a href="javascript:updateSpitter();">Generate ↻</a>
+					<button onclick="updateSpitter()">Generate ↻</button>
 				</div>
 			</nav>
 			<div id="gradientcolors"></div>
