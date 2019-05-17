@@ -63,7 +63,7 @@ nav {
 }
 
 .circle {
-	display: inline-flex;
+	display: inline-block;
 	padding: 16px;
 	border-radius: 50%;
 	margin: 8px;
@@ -121,6 +121,7 @@ input[type="color"]::-webkit-color-swatch {
 .flex {
 	display: flex;
 	flex-grow: 1;
+	align-items: center;
 }
 
 #colors {
@@ -130,6 +131,14 @@ input[type="color"]::-webkit-color-swatch {
 
 nav.title .circle {
 	margin-right: 16px;
+}
+
+#combocircle {
+	background: linear-gradient(to right, var(--primary-bg-color) 50%, var(--primary-color) 50%)
+}
+
+#gradcircle {
+	background: linear-gradient(to right, var(--primary-bg-color), var(--primary-color))
 }
 
 .family {

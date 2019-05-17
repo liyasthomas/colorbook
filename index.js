@@ -294,6 +294,11 @@ const colors = {
 }
 const bgc = document.getElementById('bg-color')
 const fgc = document.getElementById('color')
+const bg = document.getElementById('bg')
+const fg = document.getElementById('fg')
+const swap = document.getElementById('swap')
+const combocircle = document.getElementById('combocircle')
+const gradcircle = document.getElementById('gradcircle')
 const complementaryColor = (color) => {
 	let hexColor = color.replace('#', '0x')
 	return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`
@@ -340,11 +345,9 @@ const updateSpitter = () => {
 		let clampedR = (valClampRGB[0] > 0) ?
 			pad((Math.round(valClampRGB[0] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
 			pad((Math.round((val1RGB[0] + (valClampRGB[0]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
-
 		let clampedG = (valClampRGB[1] > 0) ?
 			pad((Math.round(valClampRGB[1] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
 			pad((Math.round((val1RGB[1] + (valClampRGB[1]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
-
 		let clampedB = (valClampRGB[2] > 0) ?
 			pad((Math.round(valClampRGB[2] / 100 * (stepsPerc * (i + 1)))).toString(16), 2) :
 			pad((Math.round((val1RGB[2] + (valClampRGB[2]) / 100 * (stepsPerc * (i + 1))))).toString(16), 2)
@@ -355,10 +358,13 @@ const updateSpitter = () => {
       clampedB
     ].join('')
 	}
-	let html = `<div class='family'>`
+	let html = `<div class='family'><div class='color'><span class='btn gpicker' data-bg-color='${bgc.value}' data-color='` + complementaryColor(bgc.value) + `' style='background: ${bgc.value};'></span><b>0%</b><input type='text' readonly class='hex' id='${bgc.value}' value='${bgc.value}' onclick='copy(this.id);'></div>`
 	Object.keys(colors).forEach(i => {
-		html += `<div class='color'><span class='btn gpicker' data-bg-color='${colors[i]}' data-color='` + complementaryColor(colors[i]) + `' style='background: ${colors[i]};'></span><b>${i}</b><input type='text' readonly class='hex' id='${colors[i]}' value='${colors[i]}' onclick='copy(this.id);'></div>`
+		html += `<div class='color'><span class='btn gpicker' data-bg-color='${colors[i]}' data-color='` + complementaryColor(colors[i]) + `' style='background: ${colors[i]};'></span><b>`
+		html += +i + +1
+		html += `</b><input type='text' readonly class='hex' id='${colors[i]}' value='${colors[i]}' onclick='copy(this.id);'></div>`
 	})
+	html += `<div class='color'><span class='btn gpicker' data-bg-color='${fgc.value}' data-color='` + complementaryColor(fgc.value) + `' style='background: ${fgc.value};'></span><b>100%</b><input type='text' readonly class='hex' id='${fgc.value}' value='${fgc.value}' onclick='copy(this.id);'></div>`
 	document.getElementById('gradientcolors').innerHTML = html
 	let themeSwitchers = document.querySelectorAll('.gpicker')
 	themeSwitchers.forEach((item) => {
@@ -400,8 +406,10 @@ const handleThemeUpdate = (cssVars) => {
 		let pfg = getComputedStyle(document.body).getPropertyValue('--primary-color').replace(/\s+/gi, '')
 		bgc.value = pbg
 		fgc.value = pfg
-		document.getElementById('bg').value = pbg
-		document.getElementById('fg').value = pfg
+		bg.value = pbg
+		fg.value = pfg
+		combocircle.style.background = `linear-gradient(to right, ${pbg} 50%, ${pfg} 50%)`
+		gradcircle.style.background = `linear-gradient(to right, ${pbg}, ${pfg})`
 		updateSpitter()
 		document.getElementById('circles').scrollIntoView({
 			behavior: 'smooth',
@@ -429,7 +437,7 @@ dynamicInputs.forEach((item) => {
 		})
 	})
 })
-document.getElementById('swap').addEventListener('click', ({
+swap.addEventListener('click', ({
 	target
 }) => {
 	handleThemeUpdate({

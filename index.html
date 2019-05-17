@@ -68,7 +68,7 @@
 <body>
 	<main>
 		<header>
-			<h1>Colorbook</h1>
+			<h1 class="flex"><img src="icons/logo.svg" alt="" style="height: 32px; margin-right: 16px;">Colorbook</h1>
 			<nav id="circles">
 			</nav>
 		</header>
@@ -77,15 +77,14 @@
 			<p>This is a paragraph.</p>
 		</section>
 		<section id="theming">
-			<h4 class="flex">
-				<div>
-					Combination
-				</div>
+			<nav class="title">
+				<span class='circle' id='combocircle'></span>
+				<h4>Combination</h4>
 				<div class="flex"></div>
 				<div>
 					<a href="javascript:void(0);" id="swap">Swap ⇌</a>
 				</div>
-			</h4>
+			</nav>
 			<div class='family'>
 				<div class='color'>
 					<input type="color" class='btn' id="bg-color" value="#212121">
@@ -100,16 +99,15 @@
 			</div>
 		</section>
 		<section id="gradient">
-			<h4 class="flex">
-				<div>
-					Gradient
-				</div>
+			<nav class="title">
+				<span class='circle' id='gradcircle'></span>
+				<h4>Gradient</h4>
 				<div class="flex"></div>
 				<div>
-					steps: <input type="number" id="steps" min="1" max="100" name="steps" placeholder="1-100" value="10">
+					Steps: <input type="number" id="steps" min="1" max="100" name="steps" placeholder="1-100" value="10">
 					<a href="javascript:updateSpitter();">Generate ↻</a>
 				</div>
-			</h4>
+			</nav>
 			<div id="gradientcolors"></div>
 		</section>
 		<section id="colors"></section>
