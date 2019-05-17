@@ -299,6 +299,28 @@ const fg = document.getElementById('fg')
 const swap = document.getElementById('swap')
 const combocircle = document.getElementById('combocircle')
 const gradcircle = document.getElementById('gradcircle')
+let picker1 = new Picker({
+	parent: bgc,
+	color: '#212121',
+	popup: 'bottom',
+	alpha: false,
+	onChange({
+		rgbaString
+	}) {
+		bgc.style.backgroundColor = rgbaString;
+	},
+});
+let picker2 = new Picker({
+	parent: fgc,
+	color: '#DEDEDE',
+	popup: 'bottom',
+	alpha: false,
+	onChange({
+		rgbaString
+	}) {
+		fgc.style.backgroundColor = rgbaString;
+	},
+});
 const complementaryColor = (color) => {
 	let hexColor = color.replace('#', '0x')
 	return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`
@@ -331,8 +353,8 @@ const processHEX = (val) => {
   ]
 }
 const updateSpitter = () => {
-	let val1RGB = processHEX(bgc.value)
-	let val2RGB = processHEX(fgc.value)
+	let val1RGB = processHEX(picker1.color.hex.slice(0, -2))
+	let val2RGB = processHEX(picker2.color.hex.slice(0, -2))
 	let colors = []
 	let stepsInt = parseInt(steps.value, 10)
 	let stepsPerc = 100 / (stepsInt + 1)
@@ -358,13 +380,13 @@ const updateSpitter = () => {
       clampedB
     ].join('')
 	}
-	let html = `<div class='family'><div class='color'><span class='btn gpicker' data-bg-color='${bgc.value}' data-color='` + complementaryColor(bgc.value) + `' style='background: ${bgc.value};'></span><b>0%</b><input type='text' readonly class='hex' id='${bgc.value}' value='${bgc.value}' onclick='copy(this.id);'></div>`
+	let html = `<div class='family'><div class='color'><span class='btn gpicker' data-bg-color='${picker1.color.hex.slice(0, -2)}' data-color='` + complementaryColor(picker1.color.hex.slice(0, -2)) + `' style='background: ${picker1.color.hex.slice(0, -2)};'></span><b>0%</b><input type='text' readonly class='hex' id='${picker1.color.hex.slice(0, -2)}' value='${picker1.color.hex.slice(0, -2)}' onclick='copy(this.id);'></div>`
 	Object.keys(colors).forEach(i => {
 		html += `<div class='color'><span class='btn gpicker' data-bg-color='${colors[i]}' data-color='` + complementaryColor(colors[i]) + `' style='background: ${colors[i]};'></span><b>`
 		html += +i + +1
 		html += `</b><input type='text' readonly class='hex' id='${colors[i]}' value='${colors[i]}' onclick='copy(this.id);'></div>`
 	})
-	html += `<div class='color'><span class='btn gpicker' data-bg-color='${fgc.value}' data-color='` + complementaryColor(fgc.value) + `' style='background: ${fgc.value};'></span><b>100%</b><input type='text' readonly class='hex' id='${fgc.value}' value='${fgc.value}' onclick='copy(this.id);'></div>`
+	html += `<div class='color'><span class='btn gpicker' data-bg-color='${picker2.color.hex.slice(0, -2)}' data-color='` + complementaryColor(picker2.color.hex.slice(0, -2)) + `' style='background: ${picker2.color.hex.slice(0, -2)};'></span><b>100%</b><input type='text' readonly class='hex' id='${picker2.color.hex.slice(0, -2)}' value='${picker2.color.hex.slice(0, -2)}' onclick='copy(this.id);'></div>`
 	document.getElementById('gradientcolors').innerHTML = html
 	let themeSwitchers = document.querySelectorAll('.gpicker')
 	themeSwitchers.forEach((item) => {
@@ -396,7 +418,6 @@ Object.keys(colors).forEach(col => {
 document.getElementById('colors').innerHTML = pallet
 document.getElementById('circles').innerHTML = circles
 let themeSwitchers = document.querySelectorAll('.picker')
-let dynamicInputs = document.querySelectorAll('input[type=color]')
 const handleThemeUpdate = (cssVars) => {
 	let root = document.querySelector(':root')
 	let keys = Object.keys(cssVars)
@@ -404,8 +425,8 @@ const handleThemeUpdate = (cssVars) => {
 		root.style.setProperty(key, cssVars[key])
 		let pbg = getComputedStyle(document.body).getPropertyValue('--primary-bg-color').replace(/\s+/gi, '')
 		let pfg = getComputedStyle(document.body).getPropertyValue('--primary-color').replace(/\s+/gi, '')
-		bgc.value = pbg
-		fgc.value = pfg
+		picker1.setColor(pbg)
+		picker2.setColor(pfg)
 		bg.value = pbg
 		fg.value = pfg
 		combocircle.style.background = `linear-gradient(to right, ${pbg} 50%, ${pfg} 50%)`
@@ -427,22 +448,26 @@ themeSwitchers.forEach((item) => {
 		})
 	})
 })
-dynamicInputs.forEach((item) => {
-	item.addEventListener('change', ({
-		target
-	}) => {
-		const cssPropName = `--primary-${target.id}`
-		handleThemeUpdate({
-      [cssPropName]: target.value
-		})
+picker1.onClose = ({
+	hex
+}) => {
+	handleThemeUpdate({
+		'--primary-bg-color': hex.slice(0, -2)
 	})
-})
+};
+picker2.onClose = ({
+	hex
+}) => {
+	handleThemeUpdate({
+		'--primary-color': hex.slice(0, -2)
+	})
+};
 swap.addEventListener('click', ({
 	target
 }) => {
 	handleThemeUpdate({
-		'--primary-bg-color': fgc.value,
-		'--primary-color': bgc.value
+		'--primary-bg-color': picker2.color.hex.slice(0, -2),
+		'--primary-color': picker1.color.hex.slice(0, -2)
 	})
 })
 const copy = (e) => {

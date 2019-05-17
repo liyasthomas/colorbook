@@ -51,6 +51,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Product+Sans' rel='stylesheet'>
 	<link rel="stylesheet" href="index.css">
+	<script src="https://unpkg.com/vanilla-picker@2"></script>
 	<script>
 		if ('serviceWorker' in navigator) {
 			window.addEventListener('load', function() {
@@ -92,12 +93,12 @@
 			</nav>
 			<div class='family'>
 				<div class='color'>
-					<input type="color" class='btn' id="bg-color" value="#212121">
+					<div class='btn' id="bg-color"></div>
 					<b>Background</b>
 					<input type="text" readonly id="bg" class="hex" onclick="copy(this.id)" value="#212121">
 				</div>
 				<div class='color'>
-					<input type="color" class='btn' id="color" value="#DEDEDE">
+					<div class='btn' id="color"></div>
 					<b>Foreground</b>
 					<input type="text" readonly id="fg" class="hex" onclick="copy(this.id)" value="#DEDEDE">
 				</div>
