@@ -73,16 +73,19 @@ main {
 	padding: 32px;
 }
 
-a:not(.circle),
-input[type="text"]:not(.hex) {
+a:not(.circle) {
 	background: #000000;
 	color: #ffffff;
 	padding: 8px 16px;
 	border-radius: 4px;
 }
 
-input[type="text"]:not(.hex) {
-	width: 64px;
+input[type="number"] {
+	background: #000000;
+	color: #ffffff;
+	padding: 2px 2px 2px 8px;
+	width: 56px;
+	border-radius: 4px;
 }
 
 input {

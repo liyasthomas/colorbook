@@ -104,7 +104,7 @@
 				<h4>Gradient</h4>
 				<div class="flex"></div>
 				<div>
-					Steps: <input type="number" id="steps" min="1" max="100" name="steps" placeholder="1-100" value="10">
+					Steps: <input type="number" id="steps" oninput="this.value=this.value.slice(0,this.maxLength)" min="1" max="99" name="steps" value="10" maxlength="2">
 					<a href="javascript:updateSpitter();">Generate ↻</a>
 				</div>
 			</nav>
