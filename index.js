@@ -299,6 +299,10 @@ const fg = document.getElementById('fg')
 const swap = document.getElementById('swap')
 const combocircle = document.getElementById('combocircle')
 const gradcircle = document.getElementById('gradcircle')
+const navcircles = document.getElementById('navcircles')
+const gradcolors = document.getElementById('gradcolors')
+const matcolors = document.getElementById('matcolors')
+const snackbar = document.getElementById('snackbar')
 let picker1 = new Picker({
 	parent: bgc,
 	color: '#212121',
@@ -307,9 +311,9 @@ let picker1 = new Picker({
 	onChange({
 		rgbaString
 	}) {
-		bgc.style.backgroundColor = rgbaString;
-	},
-});
+		bgc.style.backgroundColor = rgbaString
+	}
+})
 let picker2 = new Picker({
 	parent: fgc,
 	color: '#DEDEDE',
@@ -318,9 +322,9 @@ let picker2 = new Picker({
 	onChange({
 		rgbaString
 	}) {
-		fgc.style.backgroundColor = rgbaString;
-	},
-});
+		fgc.style.backgroundColor = rgbaString
+	}
+})
 const complementaryColor = (color) => {
 	let hexColor = color.replace('#', '0x')
 	return `#${(`000000${('0xffffff' ^ hexColor).toString(16)}`).slice(-6)}`
@@ -387,7 +391,7 @@ const updateSpitter = () => {
 		html += `</b><input type='text' readonly class='hex' id='${colors[i]}' value='${colors[i]}' onclick='copy(this.id);'></div>`
 	})
 	html += `<div class='color'><span class='btn gpicker' data-bg-color='${picker2.color.hex.slice(0, -2)}' data-color='` + complementaryColor(picker2.color.hex.slice(0, -2)) + `' style='background: ${picker2.color.hex.slice(0, -2)};'></span><b>100%</b><input type='text' readonly class='hex' id='${picker2.color.hex.slice(0, -2)}' value='${picker2.color.hex.slice(0, -2)}' onclick='copy(this.id);'></div>`
-	document.getElementById('gradientcolors').innerHTML = html
+	gradcolors.innerHTML = html
 	let themeSwitchers = document.querySelectorAll('.gpicker')
 	themeSwitchers.forEach((item) => {
 		item.addEventListener('click', ({
@@ -415,8 +419,8 @@ Object.keys(colors).forEach(col => {
 	})
 	pallet += '</div>'
 })
-document.getElementById('colors').innerHTML = pallet
-document.getElementById('circles').innerHTML = circles
+matcolors.innerHTML = pallet
+navcircles.innerHTML = circles
 let themeSwitchers = document.querySelectorAll('.picker')
 const handleThemeUpdate = (cssVars) => {
 	let root = document.querySelector(':root')
@@ -432,7 +436,7 @@ const handleThemeUpdate = (cssVars) => {
 		combocircle.style.background = `linear-gradient(to right, ${pbg} 50%, ${pfg} 50%)`
 		gradcircle.style.background = `linear-gradient(to right, ${pbg}, ${pfg})`
 		updateSpitter()
-		document.getElementById('circles').scrollIntoView({
+		navcircles.scrollIntoView({
 			behavior: 'smooth',
 			block: 'center'
 		})
@@ -454,14 +458,14 @@ picker1.onClose = ({
 	handleThemeUpdate({
 		'--primary-bg-color': hex.slice(0, -2)
 	})
-};
+}
 picker2.onClose = ({
 	hex
 }) => {
 	handleThemeUpdate({
 		'--primary-color': hex.slice(0, -2)
 	})
-};
+}
 swap.addEventListener('click', ({
 	target
 }) => {
@@ -473,9 +477,8 @@ swap.addEventListener('click', ({
 const copy = (e) => {
 	document.getElementById(e).select()
 	document.execCommand('copy')
-	const x = document.getElementById('snackbar')
-	x.className = 'show'
+	snackbar.className = 'show'
 	setTimeout(() => {
-		x.className = x.className.replace('show', '')
+		snackbar.className = snackbar.className.replace('show', '')
 	}, 2000)
 }
