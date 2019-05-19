@@ -393,7 +393,7 @@ const updateSpitter = () => {
 	html += `<div class='color'><span class='btn gpicker' data-bg-color='${picker2.color.hex.slice(0, -2)}' data-color='` + complementaryColor(picker2.color.hex.slice(0, -2)) + `' style='background: ${picker2.color.hex.slice(0, -2)};'></span><b>100%</b><input type='text' readonly class='hex' id='${picker2.color.hex.slice(0, -2)}' value='${picker2.color.hex.slice(0, -2)}' onclick='copy(this.id);'></div>`
 	gradcolors.innerHTML = html
 	let themeSwitchers = document.querySelectorAll('.gpicker')
-	themeSwitchers.forEach((item) => {
+	themeSwitchers.forEach(item => {
 		item.addEventListener('click', ({
 			target
 		}) => {
@@ -481,4 +481,42 @@ const copy = (e) => {
 	setTimeout(() => {
 		snackbar.className = snackbar.className.replace('show', '')
 	}, 2000)
+}
+const hexToRGB = (h) => {
+	let r = 0
+	let g = 0
+	let b = 0
+	if (h.length == 4) {
+		r = `0x${h[1]}${h[1]}`
+		g = `0x${h[2]}${h[2]}`
+		b = `0x${h[3]}${h[3]}`
+		return `rgb(${+r},${+g},${+b})`
+	} else if (h.length == 7) {
+		r = `0x${h[1]}${h[2]}`
+		g = `0x${h[3]}${h[4]}`
+		b = `0x${h[5]}${h[6]}`
+		return `rgb(${+r},${+g},${+b})`
+	} else {
+		let sep = h.includes(',') ? ',' : ' '
+		h = h.substr(4).split(')')[0].split(sep)
+		let r = (+h[0]).toString(16)
+		let g = (+h[1]).toString(16)
+		let b = (+h[2]).toString(16)
+		if (r.length == 1) {
+			r = `0${r}`
+		}
+		if (g.length == 1) {
+			g = `0${g}`
+		}
+		if (b.length == 1) {
+			b = `0${b}`
+		}
+		return `#${r}${g}${b}`
+	}
+}
+const convert = () => {
+	let inputs = document.querySelectorAll('input[type=text]')
+	inputs.forEach(i => {
+		i.value = hexToRGB(i.value)
+	})
 }
