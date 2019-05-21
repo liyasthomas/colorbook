@@ -177,6 +177,10 @@ nav.title .circle {
 	animation: fadein .2s, fadeout 0.2s 1.8s;
 }
 
+.picker_wrapper {
+	border-radius: 4px;
+}
+
 @keyframes fadeout {
 	from {
 		opacity: 1;
