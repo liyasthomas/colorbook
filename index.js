@@ -306,7 +306,7 @@ const snackbar = document.getElementById('snackbar')
 let picker1 = new Picker({
 	parent: bgc,
 	color: '#212121',
-	popup: 'bottom',
+	popup: 'top',
 	alpha: false,
 	onChange({
 		rgbaString
@@ -317,7 +317,7 @@ let picker1 = new Picker({
 let picker2 = new Picker({
 	parent: fgc,
 	color: '#DEDEDE',
-	popup: 'bottom',
+	popup: 'top',
 	alpha: false,
 	onChange({
 		rgbaString

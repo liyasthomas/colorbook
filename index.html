@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<meta charset='utf-8'>
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
 	<title>Colorbook - Color schemes for UI design</title>
@@ -50,14 +50,14 @@
 	<!-- Web Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Product+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="index.css">
-	<script src="https://unpkg.com/vanilla-picker@2"></script>
+	<script src="https://unpkg.com/vanilla-picker"></script>
 	<script>
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', function() {
-				navigator.serviceWorker.register('sw.js').then(function(registration) {
-					console.log('ServiceWorker registration successful with scope: ', registration.scope);
+		if ("serviceWorker" in navigator) {
+			window.addEventListener("load", function() {
+				navigator.serviceWorker.register("sw.js").then(function(registration) {
+					console.log("ServiceWorker registration successful with scope: ", registration.scope);
 				}).catch(function(err) {
-					console.log('ServiceWorker registration failed: ', err);
+					console.log("ServiceWorker registration failed: ", err);
 				});
 			});
 		}
@@ -83,21 +83,21 @@
 		</section>
 		<section id="theming">
 			<nav class="title">
-				<span class='circle' id='combocircle'></span>
+				<span class="circle" id="combocircle"></span>
 				<h4>Combination</h4>
 				<div class="flex"></div>
 				<div>
 					<button id="swap">Swap ⇌</button>
 				</div>
 			</nav>
-			<div class='family'>
-				<div class='color'>
-					<div class='btn' id="bg-color"></div>
+			<div class="family">
+				<div class="color">
+					<div class="btn" id="bg-color"></div>
 					<b>Background</b>
 					<input type="text" readonly id="bg" class="hex" onclick="copy(this.id)" value="#212121">
 				</div>
-				<div class='color'>
-					<div class='btn' id="color"></div>
+				<div class="color">
+					<div class="btn" id="color"></div>
 					<b>Foreground</b>
 					<input type="text" readonly id="fg" class="hex" onclick="copy(this.id)" value="#DEDEDE">
 				</div>
@@ -105,7 +105,7 @@
 		</section>
 		<section id="gradient">
 			<nav class="title">
-				<span class='circle' id='gradcircle'></span>
+				<span class="circle" id="gradcircle"></span>
 				<h4>Gradient</h4>
 				<div class="flex"></div>
 				<div>

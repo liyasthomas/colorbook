@@ -144,9 +144,9 @@ nav.title .circle {
 .btn {
 	display: flex;
 	padding: 32px;
-	cursor: pointer;
 	border-radius: 4px;
 	transition: .2s;
+	cursor: url('http://s1.iconbird.com/ico/0612/GooglePlusInterfaceIcons/w18h181338911221dropper.png'), pointer;
 }
 
 .hex {
@@ -156,6 +156,7 @@ nav.title .circle {
 	max-width: 80px;
 	color: #555555;
 	text-transform: uppercase;
+	text-overflow: ellipsis;
 }
 
 #snackbar {
