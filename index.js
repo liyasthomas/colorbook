@@ -296,6 +296,7 @@ const bgc = document.getElementById('bg-color')
 const fgc = document.getElementById('color')
 const bg = document.getElementById('bg')
 const fg = document.getElementById('fg')
+const random = document.getElementById('random')
 const swap = document.getElementById('swap')
 const combocircle = document.getElementById('combocircle')
 const gradcircle = document.getElementById('gradcircle')
@@ -474,6 +475,14 @@ swap.addEventListener('click', ({
 		'--primary-color': picker1.color.hex.slice(0, -2)
 	})
 })
+random.addEventListener('click', ({
+	target
+}) => {
+	handleThemeUpdate({
+		'--primary-bg-color': generateRandomHexColor(),
+		'--primary-color': complementaryColor(generateRandomHexColor())
+	})
+})
 const copy = (e) => {
 	document.getElementById(e).select()
 	document.execCommand('copy')
@@ -486,12 +495,12 @@ const hexToRGB = (h) => {
 	let r = 0
 	let g = 0
 	let b = 0
-	if (h.length == 4) {
+	if (h.length === 4) {
 		r = `0x${h[1]}${h[1]}`
 		g = `0x${h[2]}${h[2]}`
 		b = `0x${h[3]}${h[3]}`
 		return `rgb(${+r},${+g},${+b})`
-	} else if (h.length == 7) {
+	} else if (h.length === 7) {
 		r = `0x${h[1]}${h[2]}`
 		g = `0x${h[3]}${h[4]}`
 		b = `0x${h[5]}${h[6]}`
@@ -502,13 +511,13 @@ const hexToRGB = (h) => {
 		let r = (+h[0]).toString(16)
 		let g = (+h[1]).toString(16)
 		let b = (+h[2]).toString(16)
-		if (r.length == 1) {
+		if (r.length === 1) {
 			r = `0${r}`
 		}
-		if (g.length == 1) {
+		if (g.length === 1) {
 			g = `0${g}`
 		}
-		if (b.length == 1) {
+		if (b.length === 1) {
 			b = `0${b}`
 		}
 		return `#${r}${g}${b}`
@@ -519,4 +528,14 @@ const convert = () => {
 	inputs.forEach(i => {
 		i.value = hexToRGB(i.value)
 	})
+}
+const generateRandomHexColor = () => {
+	let ASCIIArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+	let newHexColor = '#'
+	let hexSeed
+	for (let i = 0; i < 6; i++) {
+		hexSeed = Math.floor(Math.random() * 16)
+		newHexColor += ASCIIArray[hexSeed]
+	}
+	return newHexColor
 }
