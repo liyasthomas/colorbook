@@ -529,13 +529,4 @@ const convert = () => {
 		i.value = hexToRGB(i.value)
 	})
 }
-const generateRandomHexColor = () => {
-	let ASCIIArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-	let newHexColor = '#'
-	let hexSeed
-	for (let i = 0; i < 6; i++) {
-		hexSeed = Math.floor(Math.random() * 16)
-		newHexColor += ASCIIArray[hexSeed]
-	}
-	return newHexColor
-}
+const generateRandomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`
