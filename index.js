@@ -529,4 +529,4 @@ const convert = () => {
 		i.value = hexToRGB(i.value)
 	})
 }
-const generateRandomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`
+const generateRandomHexColor = () => `#${(0x1000000 + Math.random() * 0xFFFFFF).toString(16).substr(1, 6)}`
