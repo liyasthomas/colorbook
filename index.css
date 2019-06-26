@@ -39,7 +39,6 @@ body {
 	height: 100vh;
 	font-size: 18px;
 	font-family: 'Roboto Mono', "SF Mono", "Lucida Console", Monaco, monospace;
-	line-height: 2;
 	animation: fadein .2s;
 }
 
@@ -101,7 +100,8 @@ input {
 	border-radius: 4px;
 	margin: 32px 0;
 	font-size: 20px;
-	font-family: 'Product Sans', 'Roboto', 'Noto', sans-serif;
+	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
+	font-weight: 700;
 }
 
 .flex {
