@@ -1,6 +1,6 @@
 :root {
-	--primary-bg-color: #212121;
-	--primary-color: #DEDEDE;
+	--primary-bg-color: #000000;
+	--primary-color: #ffffff;
 }
 
 ::selection {
@@ -72,8 +72,11 @@ button {
 	background: #000000;
 	color: #ffffff;
 	font-size: 18px;
-	font-family: 'Roboto Mono', "SF Mono", "Lucida Console", Monaco, monospace;
-	padding: 8px 16px;
+	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
+	font-weight: 700;
+	padding: 0 16px;
+	margin: 4px;
+	height: 40px;
 	border-radius: 4px;
 	cursor: pointer;
 }
@@ -108,6 +111,11 @@ input {
 	display: flex;
 	flex-grow: 1;
 	align-items: center;
+}
+
+.logo, .title {
+	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
+	font-weight: 700;
 }
 
 #colors {

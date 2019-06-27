@@ -69,11 +69,10 @@
 	<main>
 		<header>
 			<div class="flex">
-				<img src="icons/logo.svg" alt="Logo" style="height: 32px; margin-right: 16px;">
-				<h1>Colorbook</h1>
+				<h1 class="logo">Colorbook</h1>
 				<div class="flex"></div>
-				<button id="installPWA" onclick="installPWA()" style="margin-right: 12px;"><img src="icons/pwalogo.svg" alt="PWA" style="height: 24px;"></button>
-				<button id="convert" onclick="convert()" style="margin-right: 12px;">HEX ↔ RGB (β)</button>
+				<button id="installPWA" onclick="installPWA()"><img src="icons/pwalogo.svg" alt="PWA" style="height: 16px;"></button>
+				<button id="convert" onclick="convert()">HEX ↔ RGB</button>
 				<button onclick="window.open('https://github.com/liyasthomas/colorbook', '_blank')"><img src="icons/github.svg" alt="GitHub" style="margin-right: 8px;">GitHub</button>
 			</div>
 			<nav id="navcircles">
@@ -89,6 +88,8 @@
 				<div class="flex"></div>
 				<div>
 					<button id="random">Random ⭯</button>
+				</div>
+				<div>
 					<button id="swap">Swap ⇌</button>
 				</div>
 			</nav>
@@ -96,12 +97,12 @@
 				<div class="color">
 					<div class="btn" id="bg-color"></div>
 					<b>Background</b>
-					<input type="text" readonly id="bg" class="hex" onclick="copy(this.id)" value="#212121">
+					<input type="text" readonly id="bg" class="hex" onclick="copy(this.id)" value="#000000">
 				</div>
 				<div class="color">
 					<div class="btn" id="color"></div>
 					<b>Foreground</b>
-					<input type="text" readonly id="fg" class="hex" onclick="copy(this.id)" value="#DEDEDE">
+					<input type="text" readonly id="fg" class="hex" onclick="copy(this.id)" value="#ffffff">
 				</div>
 			</div>
 		</section>
