@@ -31,15 +31,15 @@ a {
 
 body {
 	margin: 0;
-	-webkit-tap-highlight-color: transparent;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	user-select: none;
 	width: 100%;
 	height: 100vh;
 	font-size: 18px;
 	font-family: 'Roboto Mono', "SF Mono", "Lucida Console", Monaco, monospace;
 	animation: fadein .2s;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 header {
@@ -56,9 +56,9 @@ nav {
 
 .circle {
 	display: inline-block;
+	margin: 8px;
 	padding: 16px;
 	border-radius: 50%;
-	margin: 8px;
 }
 
 main {
@@ -67,26 +67,26 @@ main {
 
 button {
 	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	background: #000000;
-	color: #ffffff;
-	font-size: 18px;
-	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
-	font-weight: 700;
-	padding: 0 16px;
 	margin: 4px;
+	padding: 0 16px;
 	height: 40px;
 	border-radius: 4px;
+	background: #000000;
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 18px;
+	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
 	cursor: pointer;
+	align-items: center;
+	justify-content: center;
 }
 
 input[type="number"] {
-	background: #000000;
-	color: #ffffff;
 	padding: 2px 2px 2px 8px;
 	width: 56px;
 	border-radius: 4px;
+	background: #000000;
+	color: #ffffff;
 }
 
 input {
@@ -96,15 +96,15 @@ input {
 }
 
 #content {
+	margin: 32px 0;
 	padding: 32px;
-	transition: background-color .2s ease-out, color .2s ease-out;
+	border-radius: 4px;
 	background-color: var(--primary-bg-color);
 	color: var(--primary-color);
-	border-radius: 4px;
-	margin: 32px 0;
+	font-weight: 700;
 	font-size: 20px;
 	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
-	font-weight: 700;
+	transition: background-color .2s ease-out, color .2s ease-out;
 }
 
 .flex {
@@ -113,9 +113,10 @@ input {
 	align-items: center;
 }
 
-.logo, .title {
-	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
+.logo,
+.title {
 	font-weight: 700;
+	font-family: 'Poppins', 'Roboto', 'Noto', sans-serif;
 }
 
 #colors {
@@ -137,46 +138,46 @@ nav.title .circle {
 
 .family {
 	display: flex;
-	flex-wrap: wrap;
 	padding: 0 0 32px 0;
+	flex-wrap: wrap;
 }
 
 .color {
 	display: flex;
-	flex-grow: 1;
 	flex-direction: column;
 	margin: 2px;
+	flex-grow: 1;
 }
 
 .btn {
 	display: flex;
 	padding: 32px;
 	border-radius: 4px;
-	transition: .2s;
 	cursor: url('https://s1.iconbird.com/ico/0612/GooglePlusInterfaceIcons/w18h181338911221dropper.png'), pointer;
+	transition: .2s;
 }
 
 .hex {
-	cursor: pointer;
-	font-size: inherit;
-	font-family: inherit;
 	max-width: 80px;
 	color: #555555;
 	text-transform: uppercase;
 	text-overflow: ellipsis;
+	font-size: inherit;
+	font-family: inherit;
+	cursor: pointer;
 }
 
 #snackbar {
-	visibility: hidden;
-	background-color: #555555;
-	color: #fff;
-	border-radius: 4px;
-	padding: 8px 16px;
 	position: fixed;
-	z-index: 1;
-	left: 16px;
 	bottom: 16px;
+	left: 16px;
+	z-index: 1;
+	visibility: hidden;
+	padding: 8px 16px;
+	border-radius: 4px;
+	background-color: #555555;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+	color: #fff;
 }
 
 #snackbar.show {
