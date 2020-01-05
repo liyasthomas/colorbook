@@ -478,9 +478,15 @@ swap.addEventListener('click', ({
 random.addEventListener('click', ({
 	target
 }) => {
+	let primaryBgColor = generateRandomHexColor()
+	let primaryColor = complementaryColor(primaryBgColor)
+	while (!isGoodBrightnessDifference(primaryBgColor, primaryColor) && !isGoodColorDifference(primaryBgColor, primaryColor)) {
+		primaryBgColor = generateRandomHexColor()
+		primaryColor = complementaryColor(primaryColor)
+	}
 	handleThemeUpdate({
-		'--primary-bg-color': generateRandomHexColor(),
-		'--primary-color': complementaryColor(generateRandomHexColor())
+		'--primary-bg-color': primaryBgColor,
+		'--primary-color': primaryColor
 	})
 })
 const copy = (e) => {
@@ -491,7 +497,7 @@ const copy = (e) => {
 		snackbar.className = snackbar.className.replace('show', '')
 	}, 2000)
 }
-const hexToRGB = (h) => {
+const hexToRGB = (h, rawValues=false) => {
 	let r = 0
 	let g = 0
 	let b = 0
@@ -499,12 +505,12 @@ const hexToRGB = (h) => {
 		r = `0x${h[1]}${h[1]}`
 		g = `0x${h[2]}${h[2]}`
 		b = `0x${h[3]}${h[3]}`
-		return `rgb(${+r},${+g},${+b})`
+		return rawValues ? {r: +r, g: +g, b: +b}:`rgb(${+r},${+g},${+b})`
 	} else if (h.length === 7) {
 		r = `0x${h[1]}${h[2]}`
 		g = `0x${h[3]}${h[4]}`
 		b = `0x${h[5]}${h[6]}`
-		return `rgb(${+r},${+g},${+b})`
+		return rawValues ? {r: +r, g: +g, b: +b} :`rgb(${+r},${+g},${+b})`
 	} else {
 		let sep = h.includes(',') ? ',' : ' '
 		h = h.substr(4).split(')')[0].split(sep)
@@ -530,6 +536,20 @@ const convert = () => {
 	})
 }
 const generateRandomHexColor = () => `#${(0x1000000 + Math.random() * 0xFFFFFF).toString(16).substr(1, 6)}`
+const isGoodBrightnessDifference = (bgColor, foregroundColor) => {
+	const bgColorRGB = hexToRGB(bgColor, true)
+	const foregroundColorRGB = hexToRGB(foregroundColor, true)
+	const bgColorLuminance = (0.299 * bgColorRGB.r) + (0.587 * bgColorRGB.g) + (0.114 * bgColorRGB.b)
+	const foregroundColorLuminance = (0.299 * foregroundColorRGB.r) + (0.587 * foregroundColorRGB.g) + (0.114 * foregroundColorRGB.b)
+
+	return Math.abs(bgColorLuminance - foregroundColorLuminance) >= 125
+}
+const isGoodColorDifference = (bgColor, foregroundColor) => {
+	const bgColorRGB = hexToRGB(bgColor, true)
+	const foregroundColorRGB = hexToRGB(foregroundColor, true)
+	
+	return Math.max(bgColorRGB.r, foregroundColorRGB.r) - Math.min(bgColorRGB.r, foregroundColorRGB.r) + Math.max(bgColorRGB.g, foregroundColorRGB.g) - Math.min(bgColorRGB.g, foregroundColorRGB.g) + Math.max(bgColorRGB.b, foregroundColorRGB.b)-Math.min(bgColorRGB.b, foregroundColorRGB.b) >= 500
+}
 let pwaInstalled = localStorage.getItem('pwaInstalled') == 'yes'
 if (window.matchMedia('(display-mode: standalone)').matches) {
 	localStorage.setItem('pwaInstalled', 'yes')
