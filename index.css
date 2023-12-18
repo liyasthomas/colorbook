@@ -74,7 +74,7 @@ button {
   background: #000000;
   color: #ffffff;
   font-weight: 700;
-  font-size: 18px;
+  /* font-size: 18px; */
   font-family: "Poppins", "Roboto", "Noto", sans-serif;
   cursor: pointer;
   align-items: center;
@@ -111,6 +111,16 @@ input {
   display: flex;
   flex-grow: 1;
   align-items: center;
+}
+.header-flex {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+@media screen and (max-width: 480px) {
+  .header-flex {
+    flex-direction: column;
+  }
 }
 
 .logo,
