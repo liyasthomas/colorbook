@@ -92,22 +92,24 @@
   <body>
     <main>
       <header>
-        <div class="flex">
+        <div class="header-flex">
           <h1 class="logo">Colorbook</h1>
           <div class="flex"></div>
-          <button id="installPWA" onclick="installPWA()">
-            <img src="icons/pwalogo.svg" alt="PWA" style="height: 16px;" />
-          </button>
-          <button id="convert" onclick="convert()">HEX ↔ RGB</button>
-          <button
-            onclick="window.open('https://github.com/liyasthomas/colorbook', '_blank')"
-          >
-            <img
-              src="icons/github.svg"
-              alt="GitHub"
-              style="margin-right: 8px;"
-            />GitHub
-          </button>
+          <div style="display: flex">
+            <button id="installPWA" onclick="installPWA()">
+              <img src="icons/pwalogo.svg" alt="PWA" style="height: 16px" />
+            </button>
+            <button id="convert" onclick="convert()">HEX ↔ RGB</button>
+            <button
+              onclick="window.open('https://github.com/liyasthomas/colorbook', '_blank')"
+            >
+              <img
+                src="icons/github.svg"
+                alt="GitHub"
+                style="margin-right: 8px"
+              />GitHub
+            </button>
+          </div>
         </div>
         <nav id="navcircles"></nav>
       </header>
